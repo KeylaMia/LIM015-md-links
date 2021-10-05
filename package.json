@@ -21,7 +21,8 @@
   "homepage": "https://github.com/KeylaMia/LIM015-md-links#readme",
   "keywords": [],
   "dependencies": {
-    "chalk": "^4.1.2"
+    "chalk": "^4.1.2",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "jest": "^27.2.1"
