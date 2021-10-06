@@ -1,6 +1,5 @@
-const api = require('../src/api.js');
+const api = require('../src/api.js');// Función mdLink validate options
 
-// Función mdLink validate options
 const mdLink  = (route, option = {}) =>
     new Promise ((resolve, reject) => {
         if(!api.existPath(route)) {

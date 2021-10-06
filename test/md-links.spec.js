@@ -40,7 +40,7 @@ const {
         .toBe('C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\README.md');
       });
       it('deberia retorar la rut absoluta', () => {
-        expect(api.absoluteConvert('README.md')).toBe('C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\README.md');
+        expect(api.absoluteConvert('README.md')).toBe('C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\README.md');
       });
     }); 
 
@@ -100,7 +100,7 @@ const {
         expect(typeof(api.readFile)).toBe('function');
       });
       it('deberia retornar el contenido de un archivo', () => {
-        expect(api.readFile('C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\prueba\\pruebita2\\prueba2.md'))
+        expect(api.readFile('C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba\\pruebita2\\prueba2.md'))
         .toEqual('[Arreglos](https://curriculum.laboratoria.la/es/topics/javascript/04-arrays)');
       })
     });
@@ -111,14 +111,14 @@ const {
         expect(typeof(api.getPathMd)).toBe('function');
       });
       it('debería retornar todos los archivos', () => {
-        expect(api.getPathMd('C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\prueba')).toEqual(
+        expect(api.getPathMd('C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba')).toEqual(
           [
-            'C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\prueba\\prueba.md',
-            'C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\prueba\\pruebita2\\prueba2.md'
+            'C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba\\prueba.md',
+            'C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba\\pruebita2\\prueba2.md',
           ]);
       });
       it('debería retornar archivos .md', () => {
-        expect(api.getPathMd('C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\prueba\\prueba.md')).toEqual(['C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\prueba\\prueba.md']);
+        expect(api.getPathMd('C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba\\prueba.md')).toEqual(['C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba\\prueba.md']);
       });
     });
 
@@ -128,12 +128,12 @@ const {
         expect(typeof(api.getLinks)).toBe('function');
       });
       it('debería devolver un array de objetos con tres propiedades: href, text y file', () => {
-        const pathFile = 'C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\prueba\\pruebita2\\prueba2.md';
+        const pathFile = 'C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba\\pruebita2\\prueba2.md';
         const result = [
           {
             href: 'https://curriculum.laboratoria.la/es/topics/javascript/04-arrays',
             text: 'Arreglos',
-            file: 'C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\prueba\\pruebita2\\prueba2.md'
+            file: 'C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba\\pruebita2\\prueba2.md'
           }
         ];
         expect(api.getLinks(pathFile)).toEqual(result);
