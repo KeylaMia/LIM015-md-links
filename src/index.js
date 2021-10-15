@@ -1,27 +1,25 @@
 const api = require('../src/api.js');// Función mdLink validate options
 
-const mdLink  = (route, option = {}) =>
+const mdLinks  = (route, option = {}) =>
     new Promise ((resolve, reject) => {
-        if(!api.existPath(route)) {
+        if(!api.verifyPath(route)) {
             reject('No existe la ruta, vuelve a intentarlo');
         } else  {
-            const allPaths = api.getPathMd(route);
-            let arrayAllObject = [];
-            allPaths.forEach(element => {
-                const proLink = api.getLinks(element);
-                arrayAllObject = arrayAllObject.concat(proLink);
-            })
+            const arrayAllObject = api.getLinks(route);
             if (!(option.validate)) {
                 resolve(arrayAllObject);
-            }
-            else {
-                const linkStatus = api.validateLinks(arrayAllObject);
+            }else {
+                const linkStatus = api.validate(arrayAllObject);
                 resolve(linkStatus)
             }
         }
     });
 
-const pruebaResultado = mdLink('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba', { validate: true });
+/*const pruebaResultado = mdLinks('C:\\Users\\Keyla\\OneDrive\\Escritorio\\importante\\GitHub\\LIM015-md-links\\prueba\\prueba.md', { validate: true });
 pruebaResultado
 .then((res) => console.log(res))
 .catch((error) => console.log(error));
+*/
+module.exports= {
+mdLinks
+}

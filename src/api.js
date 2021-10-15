@@ -2,10 +2,12 @@
 const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
+const {errorLinks} =require('./optionsCli');
+const chalk = require('chalk');
 
 //rutas de prueba relativa y absoluta
-const relativePath = 'README.md';
-const absolutePath = 'C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\README.md';
+//const relativePath = 'README.md';
+//const absolutePath = 'C:\\Users\\Keyla\\Desktop\\importante\\GitHub\\LIM015-md-links\\README.md';
 
 //para ver si la ruta existe
 const verifyPath = (route) => fs.existsSync(route); 
@@ -17,8 +19,11 @@ const absoluteVerify = (route) => path.isAbsolute(route);
 //console.log('¿la ruta ingresada es absoluta?',absoluteVerify(relativePath));
 
 //para convertir a ruta absoluta
-const absoluteConvert= (route) => path.resolve(route);
+//const absoluteConvert= (route) => path.resolve(route);
 //console.log('la ruta absoluta es: ',absoluteConvert(relativePath));
+
+//para convertir a ruta absoluta con operador binario
+const absolutePathConvert = (route) => path.absoluteVerify(route) ? (route) : path.resolve(route); // Retorna ruta absoluta
 
 //ver si no es archivo (es un directorio)
 const directoryVerify = (route) => fs.statSync(route).isDirectory();
@@ -70,24 +75,28 @@ const regExLink = /\((https?.+?)\)/gi;
 
 //cuando validate es false 
 const getLinks = (route) => {
-    const fileMdContent = readFile(route).match(regEx);
+    //const fileMdContent = readFile(route).match(regEx);
     const linkArray = [];
-    if(fileMdContent !== null) {
-        fileMdContent.forEach((link) => {
-            const linksObject = {
+    getPathMd(route).forEach((element)=>{
+      const fileMdContent = readFile(element);
+      const fileLink =fileMdContent.match(regEx);
+      if(fileMdContent.length > 0 && regEx.test(fileMdContent) === true){
+        fileLink.forEach((link) => {
+          const linkObject = {
               href: link.match(regExLink).join().slice(1,-1),
               text: link.match(regExText).join().slice(1,-1),
-              file: route,
-            };
-            linkArray.push(linksObject);
-          }); 
-    }
+              file: element,
+          };
+          linkArray.push(linkObject);
+      });
+      } else if(!regEx.test(fileMdContent)){
+        console.log(chalk.red(errorLinks));
+      }
+    });
     return linkArray;
 };
-//console.log(getLinks('prueba\\prueba.md'));
+//console.log(getLinks('prueba\\pruebita2\\prueba3.md'));
 
-
-const pruebaPath = getLinks('prueba\\prueba.md');
 //funcion para validar los links
 //fetch permite ver el status de los links
 const validate = (info) => {
@@ -96,11 +105,11 @@ const validate = (info) => {
       .then((result) => {
         const statusText = result.status ===200 ? 'Ok': 'Fail';
         const data = {
-            file: link.file,
             href: link.href,
-            message: statusText,
             text: (link.text.slice(0,50)), 
+            file: link.file,
             status: result.status,
+            message: statusText, 
           };
           return data;
         })
@@ -124,12 +133,11 @@ const validate = (info) => {
   */
 };
 
-validate(pruebaPath);
 
 module.exports = { 
     verifyPath,
     absoluteVerify,
-    absoluteConvert,
+    absolutePathConvert,
     directoryVerify,
     readDirectory,
     fileVerify,
