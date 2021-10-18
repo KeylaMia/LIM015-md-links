@@ -2,20 +2,14 @@
 
 ## Índice
 
-- [1. Preámbulo](#1-preámbulo)
-- [2. Resumen del proyecto](#2-resumen-del-proyecto)
-- [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
-- [4. Consideraciones generales](#4-consideraciones-generales)
-- [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)
-- [6. Entregables](#6-entregables)
-- [7. Hacker edition](#7-hacker-edition)
-- [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
-- [9. Checklist](#9-checklist)
-- [10. Achicando el problema](#10-achicando-el-problema)
+- [1. Resumen del Proyecto](#1-resumen-del-proyecto)
+- [2. Diagramas de Flujo](#2-diagramas-de-flujo)
+- [3. Instalación ](#3-objetivos-de-aprendizaje)
+- [3. Ejemplos ](#4-ejemplos)
 
 ---
 
-## 1. Preámbulo
+## 1. Resumen del Proyecto
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
@@ -27,36 +21,20 @@ Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que
 muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
 la información que se quiere compartir.
 
-Dentro de una comunidad de código abierto, nos han propuesto crear una
-herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
+Esta es una herramienta (librería) que usando [Node.js](https://nodejs.org/), lee y analiza archivos
 en formato `Markdown`, para verificar los links que contengan y reportar
 algunas estadísticas.
 
-![md-links](https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg)
+## 2. Diagramas de Flujo
 
-## 2. Resumen del proyecto
+### API
 
-[Node.js](https://nodejs.org/es/) es un entorno de ejecución para JavaScript
-construido con el [motor de JavaScript V8 de Chrome](https://developers.google.com/v8/).
-Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo,
-ya sea tu máquina o un servidor, lo cual nos abre las puertas para poder
-interactuar con el sistema en sí, archivos, redes, ...
+![Diagrama api](./images/api.jpg)
 
-En este proyecto nos alejamos un poco del navegador para construir un programa
-que se ejecute usando Node.js, donde aprenderemos sobre cómo interactuar con el
-sistema archivos, con el entorno (_proceso_, _env_, _stdin/stdout/stderr_), ...
+### CLI (Command Line Interface - Interfaz de Línea de Comando)
 
-En este proyecto crearás una herramienta de línea de comando (CLI) así como tu
-propia librería (o biblioteca - library) en JavaScript.
+![Diagrama cli](./images/cli.jpg)
 
-Diseñar tu propia librería es una experiencia fundamental para cualquier
-desarrollador porque que te obliga a pensar en la interfaz (API) de tus
-_módulos_ y cómo será usado por otros developers. Debes tener especial
-consideración en peculiaridades del lenguaje, convenciones y buenas prácticas.
-
-## 3. Objetivos de aprendizaje
-
-Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en tu proyecto. Piensa en eso al decidir tu estrategia de trabajo.
 
 ### JavaScript
 
@@ -660,3 +638,103 @@ cuenta utilizando **new Promise()**
 
 Es importante que sepas qué es un **callback** pues las
 promesas los utilizarán.
+# Markdown Links
+
+Markdown es un lenguaje de marcado
+ligero muy popular entre developers. Es usado en muchísimas plataformas que
+manejan texto plano (GitHub, foros, blogs, ...), y es muy común
+encontrar varios archivos en ese formato en cualquier tipo de repositorio
+(empezando por el tradicional `README.md`).
+
+Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que
+muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
+la información que se quiere compartir.
+
+## 2. Diagrama de Flujo
+
+Para poder realizar esta librería, se realizaron 2 diagramas de flujo para cada tipo.
+
+### 1) API
+
+![Diagrama api](./img/api.png)
+
+### 2) CLI (Command Line Interface - Interfaz de Línea de Comando)
+
+![Diagrama cli](./img/cli.png)
+
+## 3. Instalación
+
+Por npm:
+
+`$ npm i md-links-lim015`
+
+Por repo de github:
+
+`npm i --global GinaFlores/LIM015-md-links`
+
+## 4. Guía de Uso
+
+### API
+
+Para acceder a `mdLinks`, debemos importarla con
+
+`const mdLinks = require('md-links-lim015')`
+
+Esta es una promesa que recibe dos parámetros: `path` (ruta absoluta o relativa) y `option`, retornando un array de objetos por cada link encontrado con sus propiedades (href, text y file).
+
+#### Ejemplos de uso:
+```js
+const mdLinks = require("md-links");
+mdLinks("./some/example.md")
+  .then((links) => {
+    // => [{ href, text, file }, ...]
+  })
+  .catch(console.error);
+mdLinks("./some/example.md", { validate: true })
+  .then((links) => {
+    // => [{ href, text, file, status, ok }, ...]
+  })
+  .catch(console.error);
+mdLinks("./some/dir")
+  .then((links) => {
+    // => [{ href, text, file }, ...]
+  })
+  .catch(console.error);
+```
+
+### CLI
+
+En la línea de interfaz de comando (CLI), se coloca lo siguiente:
+
+`md-links <path-to-file> [options]`
+
+- Si pasamos la ruta sin opciones, retornará el href, text, file de cada uno de los links encontrados.
+
+![Ruta sin opciones](./img/sin-opciones.png)
+
+- Si pasamos la opción `--validate`, retornará el href, texto y file de los links encontrados, además del status (200, 404) y su mensaje respectivo (ok o fail).
+
+![Ruta con opción validate](./img/opcion-validate.png)
+
+- Si pasamos la opción `--stats`, el resultado serán el total de links encontrados y los links únicos (sin repetir).
+
+![Ruta con opción stats](./img/opcion-stats.png)
+
+- Si pasamos la opción (`--stats --validate`) o (`--validate --stats`) arrojará la cantidad total de links, así como de los links sin repetir y de los que estén rotos
+
+![Ruta con opción validate y stats](./img/opcion-validate-y-stats.png)
+
+- Si pasamos la ruta que no contiene links, la consola arrojará el mensaje siguiente:
+
+![Ruta sin links](./img/no-hay-links.png)
+
+- Si pasamos la ruta mal escrita, la consola arrojará el mensaje siguiente:
+
+![Ruta no exite](./img/no-existe-la-ruta.png)
+
+- Si pasamos la ruta bien escrita con alguna opción no válida, la consola arrojará lo siguiente:
+
+![Mensaje de ayuda](./img/mensaje-ayuda.png)
+
+## 5. Autora
+Gina Gonzales Flores - Lim015 Laboratoria

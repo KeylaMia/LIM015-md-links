@@ -4,13 +4,13 @@ const chalk = require("chalk");
 const linksStats = (array)=>{
   const allLinks = array.length; 
   const uniqueLinks = new Set(array.map(link => link.href));
-  const allStats = `Total  : ${allLinks.length}\nUnique : ${uniqueLinks.size}`;
+  const allStats = `Total  : ${allLinks}\nUnique : ${uniqueLinks.size}`;
   return allStats;
 }; 
 
 const brokenLinks =(array)=>{
     //const messageLink = array.map( link => link.message)
-    const brokenLink= array.filter( link => link.message ==='FAIL');
+    const brokenLink= array.filter( link => link.message ==='Fail');
     const errLinks = `Broken : ${brokenLink.length}`;
     return errLinks;
 };

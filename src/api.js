@@ -19,11 +19,13 @@ const absoluteVerify = (route) => path.isAbsolute(route);
 //console.log('¿la ruta ingresada es absoluta?',absoluteVerify(relativePath));
 
 //para convertir a ruta absoluta
-//const absoluteConvert= (route) => path.resolve(route);
+const absoluteConvert= (route) => path.resolve(route);
 //console.log('la ruta absoluta es: ',absoluteConvert(relativePath));
 
-//para convertir a ruta absoluta con operador binario
+/*//para convertir a ruta absoluta con operador binario
 const absolutePathConvert = (route) => path.absoluteVerify(route) ? (route) : path.resolve(route); // Retorna ruta absoluta
+console.log (absoluteConvert('prueba\\prueba.md'));
+*/
 
 //ver si no es archivo (es un directorio)
 const directoryVerify = (route) => fs.statSync(route).isDirectory();
@@ -93,7 +95,7 @@ const getLinks = (route) => {
         console.log(chalk.red(errorLinks));
       }
     });
-    return linkArray;
+    return linkArray.length !== 0 ? linkArray:'';
 };
 //console.log(getLinks('prueba\\pruebita2\\prueba3.md'));
 
@@ -137,7 +139,8 @@ const validate = (info) => {
 module.exports = { 
     verifyPath,
     absoluteVerify,
-    absolutePathConvert,
+    //absolutePathConvert,
+    absoluteConvert,
     directoryVerify,
     readDirectory,
     fileVerify,
