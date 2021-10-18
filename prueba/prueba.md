@@ -5,4 +5,3 @@
   - [Array.prototype.map() - MDN](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
   - [Link Error](https://www.20thcenturystudios.com/404)
 
-

@@ -1,9 +1,10 @@
 const api = require('../src/api.js');// Función mdLink validate options
+const { pathError } = require('./optionsCli.js');
 
 const mdLinks  = (route, option = {}) =>
     new Promise ((resolve, reject) => {
         if(!api.verifyPath(route)) {
-            reject('No existe la ruta, vuelve a intentarlo');
+            reject(pathError);
         } else  {
             const arrayAllObject = api.getLinks(route);
             if (!(option.validate)) {
