@@ -53,7 +53,7 @@ Podemos instalar esta librería empleando cualquiera de los siguientes comandos:
 
   #### Por npm:
 
-  `$ npm i md-links-lim015`
+  `$ npm i keylamia-md-links`
 
 
   #### Desde github:
@@ -148,4 +148,4 @@ Al ingresar esta opción te indicaremos el número de links totales, únicos y r
 
 ## 5. Autora
 Keyla Mialu Jimenez Gallegos - Lim015 Laboratoria
-[keylaMia](https://github.com/KeylaMia))  
+[keylaMia](https://github.com/KeylaMia)  
